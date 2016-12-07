@@ -1,0 +1,182 @@
+From 306a1543a4d38841895a3f67cd8e48d51968bbcb Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Wed, 7 Dec 2016 23:27:31 +0000
+Subject: [PATCH] Add ovl plugin
+
+This plugin for yum-utils was not made in a release but is in the
+yum-utils git. It is used to over corruption on OverlayFS.
+---
+ docs/Makefile      |  2 +-
+ docs/yum-ovl.1     | 37 ++++++++++++++++++++++++++++++++++
+ plugins/ovl/ovl.py | 58 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ po/yum-utils.pot   | 10 +++++-----
+ 4 files changed, 101 insertions(+), 6 deletions(-)
+ create mode 100644 docs/yum-ovl.1
+ create mode 100644 plugins/ovl/ovl.py
+
+diff --git a/docs/Makefile b/docs/Makefile
+index d01c1e4..30409ae 100644
+--- a/docs/Makefile
++++ b/docs/Makefile
+@@ -1,7 +1,7 @@
+ DOCS = repoquery package-cleanup repo-rss yumdownloader yum-builddep yum-changelog reposync \
+        yum-list-data yum-filter-data yum-verify yum-utils yum-aliases yum-debug-dump yum-versionlock \
+        yum-groups-manager debuginfo-install repodiff yum-fs-snapshot \
+-       show-installed show-changed-rco
++       show-installed show-changed-rco yum-ovl
+ DOCS5 = yum-changelog.conf yum-versionlock.conf yum-fs-snapshot.conf
+ DOCS8 = yum-security yum-complete-transaction yumdb
+ 
+diff --git a/docs/yum-ovl.1 b/docs/yum-ovl.1
+new file mode 100644
+index 0000000..33e0dfb
+--- /dev/null
++++ b/docs/yum-ovl.1
+@@ -0,0 +1,37 @@
++.TH "yum\-ovl" "1" "September 2015" "Red Hat" "User Manual"
++.
++.SH "NAME"
++yum\-ovl \- Performs an initial copy\-up of yum(8) package database\.
++.
++.SH "OPTIONS"
++\fB\-d\fR \fIdebug\-level\fR If debug level is \fI2\fR and more, print out the number of files copied up from the lower layer
++.
++.SH "DESCRIPTION"
++Opening a file on OverlayFS in read\-only mode causes the file from
++.br
++lower layer to be opened, then later on, if the same file is opened 
++.br
++in write mode, a copy-up into the upper    layer    takes    place, 
++.br
++resulting into a \fBnew\fR file being opened\.
++.br
++Since yum(8) needs to open the \fBRPMdb\fR first read-only, and then
++.br
++also with write access, we need to copy-up the files beforehand to 
++.br
++make sure that the access is consistent.
++.
++.SH "FILES"
++\fI/usr/lib/yum\-plugins/ovl\.py\fR Plugin itself
++.
++.P
++\fI/etc/yum/pluginconf\.d/ovl\.conf\fR Configuration file allowing to enable/disable the plugin
++.
++.SH "AUTHOR"
++Pavel Odvody \fIpodvody@redhat\.com\fR
++.
++.SH "LICENSE"
++2015, Red Hat, Licensed under GPLv2+
++.
++.SH "SEE ALSO"
++yum(1) yum(8) rpmdb(8)
+diff --git a/plugins/ovl/ovl.py b/plugins/ovl/ovl.py
+new file mode 100644
+index 0000000..fe27022
+--- /dev/null
++++ b/plugins/ovl/ovl.py
+@@ -0,0 +1,58 @@
++from yum.plugins import TYPE_CORE
++from os import walk, path, fstat
++
++requires_api_version = '2.3'
++plugin_type = (TYPE_CORE,)
++VERBOSE_DEBUGLEVEL = 3
++
++
++def _stat_ino_fp(fp):
++    """
++    Get the inode number from file descriptor
++    """
++    return fstat(fp.fileno()).st_ino
++
++
++def get_file_list(rpmpath):
++    """
++    Enumerate all files in a directory
++    """
++    for root, _, files in walk(rpmpath):
++        for f in files:
++            yield path.join(root, f)
++
++
++def for_each_file(files, cb, m='rb'):
++    """
++    Open each file with mode specified in `m`
++    and invoke `cb` on each of the file objects
++    """
++    if not files or not cb:
++        return []
++    ret = []
++    for f in files:
++        with open(f, m) as fp:
++            ret.append(cb(fp))
++    return ret
++
++
++def do_detect_copy_up(files):
++    """
++    Open the files first R/O, then R/W and count unique
++    inode numbers
++    """
++    num_files = len(files)
++    lower = for_each_file(files, _stat_ino_fp, 'rb')
++    upper = for_each_file(files, _stat_ino_fp, 'ab')
++    diff = set(lower + upper)
++    return len(diff) - num_files
++
++def init_hook(conduit):
++    rpmdb_path = conduit._base.rpmdb._rpmdbpath
++
++    try:
++        files = list(get_file_list(rpmdb_path))
++        copied_num = do_detect_copy_up(files)
++        conduit.info(VERBOSE_DEBUGLEVEL, "ovl: Copying up (%i) files from OverlayFS lower layer" % copied_num)
++    except Exception as e:
++        conduit.error(1, "ovl: Error while doing RPMdb copy-up:\n%s" % e)
+diff --git a/po/yum-utils.pot b/po/yum-utils.pot
+index ad15cfc..e1166db 100644
+--- a/po/yum-utils.pot
++++ b/po/yum-utils.pot
+@@ -8,7 +8,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: PACKAGE VERSION\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2010-12-30 13:46+0100\n"
++"POT-Creation-Date: 2016-12-07 23:29+0000\n"
+ "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+ "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+ "Language-Team: LANGUAGE <LL@li.org>\n"
+@@ -22,12 +22,12 @@ msgstr ""
+ msgid "enabling %s"
+ msgstr ""
+ 
+-#: ../plugins/aliases/aliases.py:113
++#: ../plugins/aliases/aliases.py:109
+ #, python-format
+ msgid "Can't open aliases file: %s"
+ msgstr ""
+ 
+-#: ../plugins/aliases/aliases.py:120
++#: ../plugins/aliases/aliases.py:116
+ #, python-format
+ msgid ""
+ "\n"
+@@ -35,12 +35,12 @@ msgid ""
+ "%s\n"
+ msgstr ""
+ 
+-#: ../plugins/aliases/aliases.py:128
++#: ../plugins/aliases/aliases.py:124
+ #, python-format
+ msgid "%s, no match for %s"
+ msgstr ""
+ 
+-#: ../plugins/aliases/aliases.py:132 ../plugins/aliases/aliases.py:139
++#: ../plugins/aliases/aliases.py:128 ../plugins/aliases/aliases.py:135
+ #, python-format
+ msgid "Alias %s = %s"
+ msgstr ""
+-- 
+2.11.0
+

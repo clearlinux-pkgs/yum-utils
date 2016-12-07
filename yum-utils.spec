@@ -4,18 +4,17 @@
 #
 Name     : yum-utils
 Version  : 1.1.31
-Release  : 10
+Release  : 11
 URL      : http://yum.baseurl.org/download/yum-utils/yum-utils-1.1.31.tar.gz
 Source0  : http://yum.baseurl.org/download/yum-utils/yum-utils-1.1.31.tar.gz
 Summary  : Utilities based around the yum package manager
 Group    : Development/Tools
-License  : GPL-2.0+ GPL-2.0
-Requires: yum-utils-config
+License  : GPL-2.0 GPL-2.0+
 Requires: yum-utils-bin
 Requires: yum-utils-python
 Requires: yum-utils-locales
 Requires: yum-utils-doc
-BuildRequires : python-dev
+Patch1: 0001-Add-ovl-plugin.patch
 
 %description
 yum-utils is a collection of utilities and examples for the yum package
@@ -30,18 +29,9 @@ yum-debug-restore and yum-groups-manager.
 %package bin
 Summary: bin components for the yum-utils package.
 Group: Binaries
-Requires: yum-utils-config
 
 %description bin
 bin components for the yum-utils package.
-
-
-%package config
-Summary: config components for the yum-utils package.
-Group: Default
-
-%description config
-config components for the yum-utils package.
 
 
 %package doc
@@ -70,17 +60,25 @@ python components for the yum-utils package.
 
 %prep
 %setup -q -n yum-utils-1.1.31
+%patch1 -p1
 
 %build
-make V=1 %{?_smp_mflags}
+export LANG=C
+make V=1  %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}
 %make_install
 %find_lang yum-utils
+## make_install_append content
+install -D -m 644 plugins/ovl/ovl.py %{buildroot}/usr/lib/yum-plugins/ovl.py
+## make_install_append end
 
 %files
 %defattr(-,root,root,-)
+/usr/lib/yum-plugins/ovl.py
+/usr/lib/yum-plugins/ovl.pyc
+/usr/lib/yum-plugins/ovl.pyo
 
 %files bin
 %defattr(-,root,root,-)
@@ -107,11 +105,6 @@ rm -rf %{buildroot}
 /usr/bin/yum-groups-manager
 /usr/bin/yumdb
 /usr/bin/yumdownloader
-
-%files config
-%defattr(-,root,root,-)
-%exclude /etc/NetworkManager/dispatcher.d/yum-NetworkManager-dispatcher
-%exclude /etc/bash_completion.d/yum-utils.bash
 
 %files doc
 %defattr(-,root,root,-)
