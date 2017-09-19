@@ -1,1 +1,2 @@
 install -D -m 644 plugins/ovl/ovl.py %{buildroot}/usr/lib/yum-plugins/ovl.py
+install -D -m 644 plugins/priorities/priorities.py %{buildroot}/usr/lib/yum-plugins/priorities.py

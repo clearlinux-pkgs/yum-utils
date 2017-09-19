@@ -4,14 +4,14 @@
 #
 Name     : yum-utils
 Version  : 1.1.31
-Release  : 17
+Release  : 18
 URL      : http://yum.baseurl.org/download/yum-utils/yum-utils-1.1.31.tar.gz
 Source0  : http://yum.baseurl.org/download/yum-utils/yum-utils-1.1.31.tar.gz
 Summary  : Utilities based around the yum package manager
 Group    : Development/Tools
 License  : GPL-2.0 GPL-2.0+
 Requires: yum-utils-bin
-Requires: yum-utils-legacypython
+Requires: yum-utils-python
 Requires: yum-utils-locales
 Requires: yum-utils-doc
 BuildRequires : python-dev
@@ -43,20 +43,20 @@ Group: Documentation
 doc components for the yum-utils package.
 
 
-%package legacypython
-Summary: legacypython components for the yum-utils package.
-Group: Default
-
-%description legacypython
-legacypython components for the yum-utils package.
-
-
 %package locales
 Summary: locales components for the yum-utils package.
 Group: Default
 
 %description locales
 locales components for the yum-utils package.
+
+
+%package python
+Summary: python components for the yum-utils package.
+Group: Default
+
+%description python
+python components for the yum-utils package.
 
 
 %prep
@@ -68,16 +68,17 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1505074392
+export SOURCE_DATE_EPOCH=1505804959
 make V=1  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1505074392
+export SOURCE_DATE_EPOCH=1505804959
 rm -rf %{buildroot}
 %make_install
 %find_lang yum-utils
 ## make_install_append content
 install -D -m 644 plugins/ovl/ovl.py %{buildroot}/usr/lib/yum-plugins/ovl.py
+install -D -m 644 plugins/priorities/priorities.py %{buildroot}/usr/lib/yum-plugins/priorities.py
 ## make_install_append end
 
 %files
@@ -85,6 +86,9 @@ install -D -m 644 plugins/ovl/ovl.py %{buildroot}/usr/lib/yum-plugins/ovl.py
 /usr/lib/yum-plugins/ovl.py
 /usr/lib/yum-plugins/ovl.pyc
 /usr/lib/yum-plugins/ovl.pyo
+/usr/lib/yum-plugins/priorities.py
+/usr/lib/yum-plugins/priorities.pyc
+/usr/lib/yum-plugins/priorities.pyo
 
 %files bin
 %defattr(-,root,root,-)
@@ -118,7 +122,7 @@ install -D -m 644 plugins/ovl/ovl.py %{buildroot}/usr/lib/yum-plugins/ovl.py
 %doc /usr/share/man/man5/*
 %doc /usr/share/man/man8/*
 
-%files legacypython
+%files python
 %defattr(-,root,root,-)
 /usr/lib/python2*/*
 
