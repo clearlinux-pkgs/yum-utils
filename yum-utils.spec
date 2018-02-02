@@ -4,7 +4,7 @@
 #
 Name     : yum-utils
 Version  : 1.1.31
-Release  : 19
+Release  : 21
 URL      : http://yum.baseurl.org/download/yum-utils/yum-utils-1.1.31.tar.gz
 Source0  : http://yum.baseurl.org/download/yum-utils/yum-utils-1.1.31.tar.gz
 Summary  : Utilities based around the yum package manager
@@ -15,8 +15,10 @@ Requires: yum-utils-legacypython
 Requires: yum-utils-locales
 Requires: yum-utils-doc
 Requires: yum-utils-python
+BuildRequires : intltool
 BuildRequires : python-dev
 Patch1: 0001-Add-ovl-plugin.patch
+Patch2: 0002-Force-python2-path.patch
 
 %description
 yum-utils is a collection of utilities and examples for the yum package
@@ -73,17 +75,18 @@ python components for the yum-utils package.
 %prep
 %setup -q -n yum-utils-1.1.31
 %patch1 -p1
+%patch2 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1509405044
-make V=1  %{?_smp_mflags}
+export SOURCE_DATE_EPOCH=1517543820
+make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1509405044
+export SOURCE_DATE_EPOCH=1517543820
 rm -rf %{buildroot}
 %make_install
 %find_lang yum-utils

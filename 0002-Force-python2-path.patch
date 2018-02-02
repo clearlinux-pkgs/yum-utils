@@ -1,0 +1,509 @@
+From e625c3d9e61006ecf3cd0ee3005451743c02ce84 Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Fri, 2 Feb 2018 03:39:04 +0000
+Subject: [PATCH] Force python2 path
+
+---
+ debuginfo-install.py                                                  | 2 +-
+ find-repos-of-install.py                                              | 2 +-
+ needs-restarting.py                                                   | 2 +-
+ package-cleanup.py                                                    | 2 +-
+ plugins/aliases/aliases.py                                            | 2 +-
+ plugins/auto-update-debuginfo/auto-update-debuginfo.py                | 2 +-
+ plugins/basearchonly/basearchonly.py                                  | 2 +-
+ plugins/downloadonly/downloadonly.py                                  | 2 +-
+ .../fastestmirror/fastestmirror-asyncore/fastestmirror-asyncore.py    | 2 +-
+ plugins/fastestmirror/fastestmirror.py                                | 2 +-
+ plugins/fedorakmod/fedorakmod.py                                      | 2 +-
+ plugins/filter-data/filter-data.py                                    | 2 +-
+ plugins/keys/keys.py                                                  | 2 +-
+ plugins/list-data/list-data.py                                        | 2 +-
+ plugins/local/local.py                                                | 2 +-
+ plugins/priorities/priorities.py                                      | 2 +-
+ plugins/ps/ps.py                                                      | 2 +-
+ plugins/rpm-warm-cache/rpm-warm-cache.py                              | 2 +-
+ plugins/security/security.py                                          | 2 +-
+ plugins/tmprepo/tmprepo.py                                            | 2 +-
+ plugins/upgrade-helper/upgrade-helper.py                              | 2 +-
+ plugins/verify/verify.py                                              | 2 +-
+ repo-check.py                                                         | 2 +-
+ repo-graph.py                                                         | 2 +-
+ repo-rss.py                                                           | 2 +-
+ repoclosure.py                                                        | 2 +-
+ repodiff.py                                                           | 2 +-
+ repomanage.py                                                         | 2 +-
+ repoquery.py                                                          | 2 +-
+ reposync.py                                                           | 2 +-
+ repotrack.py                                                          | 2 +-
+ show-changed-rco.py                                                   | 4 ++--
+ show-installed.py                                                     | 2 +-
+ verifytree.py                                                         | 2 +-
+ yum-builddep.py                                                       | 2 +-
+ yum-complete-transaction.py                                           | 2 +-
+ yum-config-manager.py                                                 | 2 +-
+ yum-debug-dump.py                                                     | 2 +-
+ yum-debug-restore.py                                                  | 2 +-
+ yum-groups-manager.py                                                 | 2 +-
+ yum-util-cli-template                                                 | 2 +-
+ yumdb.py                                                              | 2 +-
+ yumdownloader.py                                                      | 2 +-
+ yumutils/__init__.py                                                  | 2 +-
+ yumutils/i18n.py                                                      | 2 +-
+ 45 files changed, 46 insertions(+), 46 deletions(-)
+
+diff --git a/debuginfo-install.py b/debuginfo-install.py
+index 177c6c3..49e579a 100755
+--- a/debuginfo-install.py
++++ b/debuginfo-install.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python 
++#!/usr/bin/python2 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+diff --git a/find-repos-of-install.py b/find-repos-of-install.py
+index 0578295..d54cd05 100644
+--- a/find-repos-of-install.py
++++ b/find-repos-of-install.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python -tt
++#!/usr/bin/python2 -tt
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+diff --git a/needs-restarting.py b/needs-restarting.py
+index 6bc883f..d3eee05 100755
+--- a/needs-restarting.py
++++ b/needs-restarting.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python -tt
++#!/usr/bin/python2 -tt
+ 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+diff --git a/package-cleanup.py b/package-cleanup.py
+index 4794369..7e634da 100755
+--- a/package-cleanup.py
++++ b/package-cleanup.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ #
+ # (C) 2005 Gijs Hollestelle, released under the GPL
+ # Copyright 2009 Red Hat
+diff --git a/plugins/aliases/aliases.py b/plugins/aliases/aliases.py
+index 5cb08a1..adead7d 100644
+--- a/plugins/aliases/aliases.py
++++ b/plugins/aliases/aliases.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+diff --git a/plugins/auto-update-debuginfo/auto-update-debuginfo.py b/plugins/auto-update-debuginfo/auto-update-debuginfo.py
+index 39993ad..97b798c 100644
+--- a/plugins/auto-update-debuginfo/auto-update-debuginfo.py
++++ b/plugins/auto-update-debuginfo/auto-update-debuginfo.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+diff --git a/plugins/basearchonly/basearchonly.py b/plugins/basearchonly/basearchonly.py
+index 1acebce..ca5d64f 100644
+--- a/plugins/basearchonly/basearchonly.py
++++ b/plugins/basearchonly/basearchonly.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+diff --git a/plugins/downloadonly/downloadonly.py b/plugins/downloadonly/downloadonly.py
+index 8486bb0..d931e63 100644
+--- a/plugins/downloadonly/downloadonly.py
++++ b/plugins/downloadonly/downloadonly.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+diff --git a/plugins/fastestmirror/fastestmirror-asyncore/fastestmirror-asyncore.py b/plugins/fastestmirror/fastestmirror-asyncore/fastestmirror-asyncore.py
+index 31b7c99..b1438c3 100644
+--- a/plugins/fastestmirror/fastestmirror-asyncore/fastestmirror-asyncore.py
++++ b/plugins/fastestmirror/fastestmirror-asyncore/fastestmirror-asyncore.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ # This is a threadless prototype version of fastestmirror
+ #
+ # Version: 0.3.2
+diff --git a/plugins/fastestmirror/fastestmirror.py b/plugins/fastestmirror/fastestmirror.py
+index 364b90d..8562dd3 100644
+--- a/plugins/fastestmirror/fastestmirror.py
++++ b/plugins/fastestmirror/fastestmirror.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ #
+ # Version: 0.3.3
+ #
+diff --git a/plugins/fedorakmod/fedorakmod.py b/plugins/fedorakmod/fedorakmod.py
+index b3aed61..c21cf3e 100644
+--- a/plugins/fedorakmod/fedorakmod.py
++++ b/plugins/fedorakmod/fedorakmod.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # fedorakmod.py - Fedora Kmod -- Yum Kernel Module Support
+ # Copyright 2006 - 2008 NC State University
+diff --git a/plugins/filter-data/filter-data.py b/plugins/filter-data/filter-data.py
+index a8abaf5..11ec65a 100644
+--- a/plugins/filter-data/filter-data.py
++++ b/plugins/filter-data/filter-data.py
+@@ -1,4 +1,4 @@
+-#! /usr/bin/python -tt
++#! /usr/bin/python2 -tt
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+diff --git a/plugins/keys/keys.py b/plugins/keys/keys.py
+index 3342576..e55708c 100644
+--- a/plugins/keys/keys.py
++++ b/plugins/keys/keys.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+diff --git a/plugins/list-data/list-data.py b/plugins/list-data/list-data.py
+index 37ea7fc..0335f0e 100755
+--- a/plugins/list-data/list-data.py
++++ b/plugins/list-data/list-data.py
+@@ -1,4 +1,4 @@
+-#! /usr/bin/python -tt
++#! /usr/bin/python2 -tt
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+diff --git a/plugins/local/local.py b/plugins/local/local.py
+index c45a1ce..b5427b5 100644
+--- a/plugins/local/local.py
++++ b/plugins/local/local.py
+@@ -1,4 +1,4 @@
+-#! /usr/bin/python -tt
++#! /usr/bin/python2 -tt
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+diff --git a/plugins/priorities/priorities.py b/plugins/priorities/priorities.py
+index 202c203..51aa479 100644
+--- a/plugins/priorities/priorities.py
++++ b/plugins/priorities/priorities.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ #
+ # yum-plugin-priorities 0.0.7
+ #
+diff --git a/plugins/ps/ps.py b/plugins/ps/ps.py
+index b89f04c..263c8c6 100644
+--- a/plugins/ps/ps.py
++++ b/plugins/ps/ps.py
+@@ -1,4 +1,4 @@
+-#! /usr/bin/python -tt
++#! /usr/bin/python2 -tt
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+diff --git a/plugins/rpm-warm-cache/rpm-warm-cache.py b/plugins/rpm-warm-cache/rpm-warm-cache.py
+index fe3c5c6..6c219b1 100644
+--- a/plugins/rpm-warm-cache/rpm-warm-cache.py
++++ b/plugins/rpm-warm-cache/rpm-warm-cache.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+diff --git a/plugins/security/security.py b/plugins/security/security.py
+index a60cf9b..2106e46 100755
+--- a/plugins/security/security.py
++++ b/plugins/security/security.py
+@@ -1,4 +1,4 @@
+-#! /usr/bin/python -tt
++#! /usr/bin/python2 -tt
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+diff --git a/plugins/tmprepo/tmprepo.py b/plugins/tmprepo/tmprepo.py
+index e60dd4d..d86bd6d 100644
+--- a/plugins/tmprepo/tmprepo.py
++++ b/plugins/tmprepo/tmprepo.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+diff --git a/plugins/upgrade-helper/upgrade-helper.py b/plugins/upgrade-helper/upgrade-helper.py
+index 9aa05f0..5ba4373 100644
+--- a/plugins/upgrade-helper/upgrade-helper.py
++++ b/plugins/upgrade-helper/upgrade-helper.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python -tt
++#!/usr/bin/python2 -tt
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+diff --git a/plugins/verify/verify.py b/plugins/verify/verify.py
+index 46a0368..15453b3 100644
+--- a/plugins/verify/verify.py
++++ b/plugins/verify/verify.py
+@@ -1,4 +1,4 @@
+-#! /usr/bin/python -tt
++#! /usr/bin/python2 -tt
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+diff --git a/repo-check.py b/repo-check.py
+index 7c4ae77..97fac4e 100755
+--- a/repo-check.py
++++ b/repo-check.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python 
++#!/usr/bin/python2 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+diff --git a/repo-graph.py b/repo-graph.py
+index bb901a8..5bf2da0 100755
+--- a/repo-graph.py
++++ b/repo-graph.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+diff --git a/repo-rss.py b/repo-rss.py
+index 4a2917c..b21b694 100755
+--- a/repo-rss.py
++++ b/repo-rss.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+diff --git a/repoclosure.py b/repoclosure.py
+index e710d8c..8404ed6 100755
+--- a/repoclosure.py
++++ b/repoclosure.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python -t
++#!/usr/bin/python2 -t
+ 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+diff --git a/repodiff.py b/repodiff.py
+index 67c162e..f25b019 100755
+--- a/repodiff.py
++++ b/repodiff.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python -tt
++#!/usr/bin/python2 -tt
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+diff --git a/repomanage.py b/repomanage.py
+index ff77e0d..dab83f6 100755
+--- a/repomanage.py
++++ b/repomanage.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+diff --git a/repoquery.py b/repoquery.py
+index a3bb111..3a2333a 100755
+--- a/repoquery.py
++++ b/repoquery.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python -tt
++#!/usr/bin/python2 -tt
+ 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+diff --git a/reposync.py b/reposync.py
+index 7950854..27a8e4e 100755
+--- a/reposync.py
++++ b/reposync.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python -tt
++#!/usr/bin/python2 -tt
+ 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+diff --git a/repotrack.py b/repotrack.py
+index ed26b9f..287acff 100755
+--- a/repotrack.py
++++ b/repotrack.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python -tt
++#!/usr/bin/python2 -tt
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+diff --git a/show-changed-rco.py b/show-changed-rco.py
+index 3489247..79ddf65 100755
+--- a/show-changed-rco.py
++++ b/show-changed-rco.py
+@@ -1,6 +1,6 @@
+-#! /usr/bin/python -tt
++#! /usr/bin/python2 -tt
+ 
+-#!/usr/bin/python -tt
++#!/usr/bin/python2 -tt
+ 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+diff --git a/show-installed.py b/show-installed.py
+index 737f97e..0ada83e 100755
+--- a/show-installed.py
++++ b/show-installed.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ """
+ TODO:
+diff --git a/verifytree.py b/verifytree.py
+index d1fe5e2..e410e1e 100755
+--- a/verifytree.py
++++ b/verifytree.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python -tt
++#!/usr/bin/python2 -tt
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+diff --git a/yum-builddep.py b/yum-builddep.py
+index d7a37c3..81ffd0b 100755
+--- a/yum-builddep.py
++++ b/yum-builddep.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python -tt
++#!/usr/bin/python2 -tt
+ 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+diff --git a/yum-complete-transaction.py b/yum-complete-transaction.py
+index c5074ab..66a21e2 100755
+--- a/yum-complete-transaction.py
++++ b/yum-complete-transaction.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python -tt
++#!/usr/bin/python2 -tt
+ 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+diff --git a/yum-config-manager.py b/yum-config-manager.py
+index 50f5123..eccfe7c 100755
+--- a/yum-config-manager.py
++++ b/yum-config-manager.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python -tt
++#!/usr/bin/python2 -tt
+ 
+ import os, os.path
+ import sys
+diff --git a/yum-debug-dump.py b/yum-debug-dump.py
+index 4653f3c..c0cfb5d 100755
+--- a/yum-debug-dump.py
++++ b/yum-debug-dump.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python -tt
++#!/usr/bin/python2 -tt
+ 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+diff --git a/yum-debug-restore.py b/yum-debug-restore.py
+index fd95741..07d9ede 100755
+--- a/yum-debug-restore.py
++++ b/yum-debug-restore.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python -tt
++#!/usr/bin/python2 -tt
+ 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+diff --git a/yum-groups-manager.py b/yum-groups-manager.py
+index 2cf73c8..09ae391 100755
+--- a/yum-groups-manager.py
++++ b/yum-groups-manager.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python -tt
++#!/usr/bin/python2 -tt
+ 
+ import os
+ import sys
+diff --git a/yum-util-cli-template b/yum-util-cli-template
+index 8bfdbcd..0bab256 100644
+--- a/yum-util-cli-template
++++ b/yum-util-cli-template
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python 
++#!/usr/bin/python2 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+diff --git a/yumdb.py b/yumdb.py
+index 8a4888e..25692b1 100755
+--- a/yumdb.py
++++ b/yumdb.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python -tt
++#!/usr/bin/python2 -tt
+ 
+ import sys
+ import optparse
+diff --git a/yumdownloader.py b/yumdownloader.py
+index e6107d4..ec925ba 100755
+--- a/yumdownloader.py
++++ b/yumdownloader.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python 
++#!/usr/bin/python2 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+diff --git a/yumutils/__init__.py b/yumutils/__init__.py
+index 75fd7a6..3e2928f 100644
+--- a/yumutils/__init__.py
++++ b/yumutils/__init__.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python -tt
++#!/usr/bin/python2 -tt
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+diff --git a/yumutils/i18n.py b/yumutils/i18n.py
+index eada8ed..c4ccbc7 100644
+--- a/yumutils/i18n.py
++++ b/yumutils/i18n.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python -tt
++#!/usr/bin/python2 -tt
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+-- 
+2.16.1
+
