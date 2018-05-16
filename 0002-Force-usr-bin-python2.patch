@@ -1,55 +1,56 @@
-From e625c3d9e61006ecf3cd0ee3005451743c02ce84 Mon Sep 17 00:00:00 2001
-From: William Douglas <william.douglas@intel.com>
-Date: Fri, 2 Feb 2018 03:39:04 +0000
-Subject: [PATCH] Force python2 path
+From fe81431998127ee34f6c8424fb57cfa77502b427 Mon Sep 17 00:00:00 2001
+From: George T Kramer <george.t.kramer@intel.com>
+Date: Wed, 16 May 2018 01:02:35 +0000
+Subject: [PATCH] Force /usr/bin/python2
 
 ---
- debuginfo-install.py                                                  | 2 +-
- find-repos-of-install.py                                              | 2 +-
- needs-restarting.py                                                   | 2 +-
- package-cleanup.py                                                    | 2 +-
- plugins/aliases/aliases.py                                            | 2 +-
- plugins/auto-update-debuginfo/auto-update-debuginfo.py                | 2 +-
- plugins/basearchonly/basearchonly.py                                  | 2 +-
- plugins/downloadonly/downloadonly.py                                  | 2 +-
- .../fastestmirror/fastestmirror-asyncore/fastestmirror-asyncore.py    | 2 +-
- plugins/fastestmirror/fastestmirror.py                                | 2 +-
- plugins/fedorakmod/fedorakmod.py                                      | 2 +-
- plugins/filter-data/filter-data.py                                    | 2 +-
- plugins/keys/keys.py                                                  | 2 +-
- plugins/list-data/list-data.py                                        | 2 +-
- plugins/local/local.py                                                | 2 +-
- plugins/priorities/priorities.py                                      | 2 +-
- plugins/ps/ps.py                                                      | 2 +-
- plugins/rpm-warm-cache/rpm-warm-cache.py                              | 2 +-
- plugins/security/security.py                                          | 2 +-
- plugins/tmprepo/tmprepo.py                                            | 2 +-
- plugins/upgrade-helper/upgrade-helper.py                              | 2 +-
- plugins/verify/verify.py                                              | 2 +-
- repo-check.py                                                         | 2 +-
- repo-graph.py                                                         | 2 +-
- repo-rss.py                                                           | 2 +-
- repoclosure.py                                                        | 2 +-
- repodiff.py                                                           | 2 +-
- repomanage.py                                                         | 2 +-
- repoquery.py                                                          | 2 +-
- reposync.py                                                           | 2 +-
- repotrack.py                                                          | 2 +-
- show-changed-rco.py                                                   | 4 ++--
- show-installed.py                                                     | 2 +-
- verifytree.py                                                         | 2 +-
- yum-builddep.py                                                       | 2 +-
- yum-complete-transaction.py                                           | 2 +-
- yum-config-manager.py                                                 | 2 +-
- yum-debug-dump.py                                                     | 2 +-
- yum-debug-restore.py                                                  | 2 +-
- yum-groups-manager.py                                                 | 2 +-
- yum-util-cli-template                                                 | 2 +-
- yumdb.py                                                              | 2 +-
- yumdownloader.py                                                      | 2 +-
- yumutils/__init__.py                                                  | 2 +-
- yumutils/i18n.py                                                      | 2 +-
- 45 files changed, 46 insertions(+), 46 deletions(-)
+ debuginfo-install.py                                          | 2 +-
+ find-repos-of-install.py                                      | 2 +-
+ needs-restarting.py                                           | 2 +-
+ package-cleanup.py                                            | 2 +-
+ plugins/aliases/aliases.py                                    | 2 +-
+ plugins/auto-update-debuginfo/auto-update-debuginfo.py        | 2 +-
+ plugins/basearchonly/basearchonly.py                          | 2 +-
+ plugins/downloadonly/downloadonly.py                          | 2 +-
+ .../fastestmirror-asyncore/fastestmirror-asyncore.py          | 2 +-
+ plugins/fastestmirror/fastestmirror.py                        | 2 +-
+ plugins/fedorakmod/fedorakmod.py                              | 2 +-
+ plugins/filter-data/filter-data.py                            | 2 +-
+ plugins/keys/keys.py                                          | 2 +-
+ plugins/list-data/list-data.py                                | 2 +-
+ plugins/local/local.py                                        | 2 +-
+ plugins/priorities/priorities.py                              | 2 +-
+ plugins/ps/ps.py                                              | 2 +-
+ plugins/rpm-warm-cache/rpm-warm-cache.py                      | 2 +-
+ plugins/security/security.py                                  | 2 +-
+ plugins/tmprepo/tmprepo.py                                    | 2 +-
+ plugins/upgrade-helper/upgrade-helper.py                      | 2 +-
+ plugins/verify/verify.py                                      | 2 +-
+ repo-check.py                                                 | 2 +-
+ repo-graph.py                                                 | 2 +-
+ repo-rss.py                                                   | 2 +-
+ repoclosure.py                                                | 2 +-
+ repodiff.py                                                   | 2 +-
+ repomanage.py                                                 | 2 +-
+ repoquery.py                                                  | 2 +-
+ reposync.py                                                   | 2 +-
+ repotrack.py                                                  | 2 +-
+ show-changed-rco.py                                           | 4 ++--
+ show-installed.py                                             | 2 +-
+ verifytree.py                                                 | 2 +-
+ yum-builddep.py                                               | 2 +-
+ yum-complete-transaction.py                                   | 2 +-
+ yum-config-manager.py                                         | 2 +-
+ yum-debug-dump.py                                             | 2 +-
+ yum-debug-restore.py                                          | 2 +-
+ yum-groups-manager.py                                         | 2 +-
+ yum-util-cli-template                                         | 2 +-
+ yumdb.py                                                      | 2 +-
+ yumdownloader.py                                              | 2 +-
+ yumutils/Makefile                                             | 2 +-
+ yumutils/__init__.py                                          | 2 +-
+ yumutils/i18n.py                                              | 2 +-
+ 46 files changed, 47 insertions(+), 47 deletions(-)
 
 diff --git a/debuginfo-install.py b/debuginfo-install.py
 index 177c6c3..49e579a 100755
@@ -484,6 +485,16 @@ index e6107d4..ec925ba 100755
  # This program is free software; you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
  # the Free Software Foundation; either version 2 of the License, or
+diff --git a/yumutils/Makefile b/yumutils/Makefile
+index faeac19..14737be 100644
+--- a/yumutils/Makefile
++++ b/yumutils/Makefile
+@@ -1,4 +1,4 @@
+-PYTHON=python
++PYTHON=python2
+ PACKAGE = $(shell basename `pwd`)
+ PYFILES = $(wildcard *.py)
+ PYVER := $(shell $(PYTHON) -c 'import sys; print "%.3s" %(sys.version)')
 diff --git a/yumutils/__init__.py b/yumutils/__init__.py
 index 75fd7a6..3e2928f 100644
 --- a/yumutils/__init__.py
@@ -505,5 +516,5 @@ index eada8ed..c4ccbc7 100644
  # it under the terms of the GNU General Public License as published by
  # the Free Software Foundation; either version 2 of the License, or
 -- 
-2.16.1
+2.17.0
 

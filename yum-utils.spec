@@ -4,7 +4,7 @@
 #
 Name     : yum-utils
 Version  : 1.1.31
-Release  : 24
+Release  : 25
 URL      : http://yum.baseurl.org/download/yum-utils/yum-utils-1.1.31.tar.gz
 Source0  : http://yum.baseurl.org/download/yum-utils/yum-utils-1.1.31.tar.gz
 Summary  : Utilities based around the yum package manager
@@ -15,10 +15,11 @@ Requires: yum-utils-legacypython
 Requires: yum-utils-locales
 Requires: yum-utils-doc
 Requires: yum-utils-python
+Requires: yum-utils-legacypython
 BuildRequires : intltool
 BuildRequires : python-dev
 Patch1: 0001-Add-ovl-plugin.patch
-Patch2: 0002-Force-python2-path.patch
+Patch2: 0002-Force-usr-bin-python2.patch
 
 %description
 yum-utils is a collection of utilities and examples for the yum package
@@ -66,7 +67,6 @@ locales components for the yum-utils package.
 %package python
 Summary: python components for the yum-utils package.
 Group: Default
-Requires: yum-utils-legacypython
 
 %description python
 python components for the yum-utils package.
@@ -82,11 +82,11 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1517543820
+export SOURCE_DATE_EPOCH=1526432989
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1517543820
+export SOURCE_DATE_EPOCH=1526432989
 rm -rf %{buildroot}
 %make_install
 %find_lang yum-utils
@@ -97,10 +97,10 @@ install -D -m 644 plugins/priorities/priorities.py %{buildroot}/usr/lib/yum-plug
 
 %files
 %defattr(-,root,root,-)
+/usr/lib/yum-plugins/__pycache__/ovl.cpython-36.pyc
+/usr/lib/yum-plugins/__pycache__/priorities.cpython-36.pyc
 /usr/lib/yum-plugins/ovl.py
-/usr/lib/yum-plugins/ovl.pyc
 /usr/lib/yum-plugins/priorities.py
-/usr/lib/yum-plugins/priorities.pyc
 
 %files bin
 %defattr(-,root,root,-)
