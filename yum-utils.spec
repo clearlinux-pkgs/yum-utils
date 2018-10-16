@@ -4,22 +4,24 @@
 #
 Name     : yum-utils
 Version  : 1.1.31
-Release  : 25
+Release  : 26
 URL      : http://yum.baseurl.org/download/yum-utils/yum-utils-1.1.31.tar.gz
 Source0  : http://yum.baseurl.org/download/yum-utils/yum-utils-1.1.31.tar.gz
 Summary  : Utilities based around the yum package manager
 Group    : Development/Tools
 License  : GPL-2.0 GPL-2.0+
-Requires: yum-utils-bin
-Requires: yum-utils-legacypython
-Requires: yum-utils-locales
-Requires: yum-utils-doc
-Requires: yum-utils-python
+Requires: yum-utils-bin = %{version}-%{release}
+Requires: yum-utils-license = %{version}-%{release}
+Requires: yum-utils-locales = %{version}-%{release}
+Requires: yum-utils-man = %{version}-%{release}
+Requires: yum-utils-python = %{version}-%{release}
 Requires: yum-utils-legacypython
 BuildRequires : intltool
 BuildRequires : python-dev
 Patch1: 0001-Add-ovl-plugin.patch
 Patch2: 0002-Force-usr-bin-python2.patch
+Patch3: CVE-2018-10897.patch
+Patch4: CVE-2018-10897-1.patch
 
 %description
 yum-utils is a collection of utilities and examples for the yum package
@@ -34,17 +36,11 @@ yum-debug-restore and yum-groups-manager.
 %package bin
 Summary: bin components for the yum-utils package.
 Group: Binaries
+Requires: yum-utils-license = %{version}-%{release}
+Requires: yum-utils-man = %{version}-%{release}
 
 %description bin
 bin components for the yum-utils package.
-
-
-%package doc
-Summary: doc components for the yum-utils package.
-Group: Documentation
-
-%description doc
-doc components for the yum-utils package.
 
 
 %package legacypython
@@ -56,12 +52,28 @@ Requires: python-core
 legacypython components for the yum-utils package.
 
 
+%package license
+Summary: license components for the yum-utils package.
+Group: Default
+
+%description license
+license components for the yum-utils package.
+
+
 %package locales
 Summary: locales components for the yum-utils package.
 Group: Default
 
 %description locales
 locales components for the yum-utils package.
+
+
+%package man
+Summary: man components for the yum-utils package.
+Group: Default
+
+%description man
+man components for the yum-utils package.
 
 
 %package python
@@ -76,29 +88,35 @@ python components for the yum-utils package.
 %setup -q -n yum-utils-1.1.31
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
+%patch4 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1526432989
+export SOURCE_DATE_EPOCH=1539719661
+export CFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CXXFLAGS="$CXXFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1526432989
+export SOURCE_DATE_EPOCH=1539719661
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/yum-utils
+cp COPYING %{buildroot}/usr/share/package-licenses/yum-utils/COPYING
 %make_install
 %find_lang yum-utils
-## make_install_append content
+## install_append content
 install -D -m 644 plugins/ovl/ovl.py %{buildroot}/usr/lib/yum-plugins/ovl.py
 install -D -m 644 plugins/priorities/priorities.py %{buildroot}/usr/lib/yum-plugins/priorities.py
-## make_install_append end
+## install_append end
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/yum-plugins/__pycache__/ovl.cpython-36.pyc
-/usr/lib/yum-plugins/__pycache__/priorities.cpython-36.pyc
 /usr/lib/yum-plugins/ovl.py
 /usr/lib/yum-plugins/priorities.py
 
@@ -128,15 +146,43 @@ install -D -m 644 plugins/priorities/priorities.py %{buildroot}/usr/lib/yum-plug
 /usr/bin/yumdb
 /usr/bin/yumdownloader
 
-%files doc
-%defattr(-,root,root,-)
-%doc /usr/share/man/man1/*
-%doc /usr/share/man/man5/*
-%doc /usr/share/man/man8/*
-
 %files legacypython
 %defattr(-,root,root,-)
 /usr/lib/python2*/*
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/yum-utils/COPYING
+
+%files man
+%defattr(0644,root,root,0755)
+/usr/share/man/man1/debuginfo-install.1
+/usr/share/man/man1/package-cleanup.1
+/usr/share/man/man1/repo-rss.1
+/usr/share/man/man1/repodiff.1
+/usr/share/man/man1/repoquery.1
+/usr/share/man/man1/reposync.1
+/usr/share/man/man1/show-changed-rco.1
+/usr/share/man/man1/show-installed.1
+/usr/share/man/man1/yum-aliases.1
+/usr/share/man/man1/yum-builddep.1
+/usr/share/man/man1/yum-changelog.1
+/usr/share/man/man1/yum-debug-dump.1
+/usr/share/man/man1/yum-filter-data.1
+/usr/share/man/man1/yum-fs-snapshot.1
+/usr/share/man/man1/yum-groups-manager.1
+/usr/share/man/man1/yum-list-data.1
+/usr/share/man/man1/yum-ovl.1
+/usr/share/man/man1/yum-utils.1
+/usr/share/man/man1/yum-verify.1
+/usr/share/man/man1/yum-versionlock.1
+/usr/share/man/man1/yumdownloader.1
+/usr/share/man/man5/yum-changelog.conf.5
+/usr/share/man/man5/yum-fs-snapshot.conf.5
+/usr/share/man/man5/yum-versionlock.conf.5
+/usr/share/man/man8/yum-complete-transaction.8
+/usr/share/man/man8/yum-security.8
+/usr/share/man/man8/yumdb.8
 
 %files python
 %defattr(-,root,root,-)
