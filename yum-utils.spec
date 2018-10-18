@@ -4,7 +4,7 @@
 #
 Name     : yum-utils
 Version  : 1.1.31
-Release  : 27
+Release  : 28
 URL      : http://yum.baseurl.org/download/yum-utils/yum-utils-1.1.31.tar.gz
 Source0  : http://yum.baseurl.org/download/yum-utils/yum-utils-1.1.31.tar.gz
 Summary  : Utilities based around the yum package manager
